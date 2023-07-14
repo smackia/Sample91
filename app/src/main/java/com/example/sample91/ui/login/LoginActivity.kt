@@ -111,6 +111,10 @@ class LoginActivity : AppCompatActivity() {
                 mobileNumber = binding.username.text.toString().trim()
                 redirection(3)
             }
+            binding.btnPTF?.setOnClickListener{
+                mobileNumber = binding.username.text.toString().trim()
+                redirection(4)
+            }
         }
     }
 
@@ -150,6 +154,9 @@ class LoginActivity : AppCompatActivity() {
             }
             3 -> {
                 "HISTORY"
+            }
+            4 ->{
+                "PAY_TO_FRIENDS"
             }
             else -> {
                 ""
