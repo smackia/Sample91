@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
     private var mobileNumber = ""
+    private var usCase = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,35 +98,46 @@ class LoginActivity : AppCompatActivity() {
 
             binding.btnUpi?.setOnClickListener {
                 mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
                 redirection(0)
             }
             binding.btnBank?.setOnClickListener {
                 mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
                 redirection(2)
             }
             binding.btnQr?.setOnClickListener {
                 mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
                 redirection(1)
             }
             binding.btnHistory?.setOnClickListener {
                 mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
                 redirection(3)
             }
-            binding.btnPTF?.setOnClickListener{
+            binding.btnPTF?.setOnClickListener {
                 mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
                 redirection(4)
+            }
+            binding.btnMoney?.setOnClickListener {
+                mobileNumber = binding.username.text.toString().trim()
+                usCase = binding.password.text.toString().trim()
+                redirection(5)
             }
         }
     }
 
     private fun redirection(type: Int) {
-        Log.i("PPP", "nUMBER 91 --->$mobileNumber")
+        Log.i("PPP", "nUMBER 91 --->$usCase")
         var launchIntent = packageManager.getLaunchIntentForPackage("com.eroute.omnicard")
         if (launchIntent != null) {
             launchIntent.putExtra("app_type", "Pay_91");
             launchIntent.putExtra("screen_type", getScreenType(type));
             launchIntent.putExtra("mobile", mobileNumber);
             launchIntent.putExtra("county_code", "+91");
+            launchIntent.putExtra("us_case", usCase);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(launchIntent);
         } else {
@@ -135,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
                 Uri.parse(
                     "market://details?id=com.eroute.omnicard&referrer=Pay_91|" + getScreenType(
                         type
-                    ) + "|" + mobileNumber + "|+91"
+                    ) + "|" + mobileNumber + "|+91" + usCase
                 )
             startActivity(launchIntent)
         }
@@ -155,8 +167,11 @@ class LoginActivity : AppCompatActivity() {
             3 -> {
                 "HISTORY"
             }
-            4 ->{
+            4 -> {
                 "PAY_TO_FRIENDS"
+            }
+            5 -> {
+                "LOAD_MONEY"
             }
             else -> {
                 ""
